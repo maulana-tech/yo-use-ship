@@ -47,6 +47,7 @@ const Index = () => {
   const [currentFilter, setCurrentFilter] = useState('all');
   const [isCommandOpen, setIsCommandOpen] = useState(false);
   const [typewriterText, setTypewriterText] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const { toast } = useToast();
 
@@ -65,6 +66,16 @@ const Index = () => {
     }, 100);
 
     return () => clearInterval(timer);
+  }, []);
+
+  // Scroll detection for floating navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Dark mode toggle
@@ -195,8 +206,17 @@ const Index = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setIsCommandOpen(false);
+      setIsMenuOpen(false);
     }
   };
+
+  const navItems = [
+    { label: 'About', id: 'about' },
+    { label: 'Products', id: 'products' },
+    { label: 'Demo', id: 'demo' },
+    { label: 'Pricing', id: 'pricing' },
+    { label: 'FAQ', id: 'faq' }
+  ];
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -235,67 +255,108 @@ const Index = () => {
         </div>
       )}
 
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <div className="font-satoshi text-xl font-bold text-gradient">
-                Yo'use Studio
+      {/* Floating Navigation */}
+      <nav className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ease-out ${
+        isScrolled ? 'scale-95' : 'scale-100'
+      }`}>
+        <div className={`bg-white/90 dark:bg-black/90 backdrop-blur-xl border border-gray-200/50 dark:border-gray-800/50 rounded-2xl shadow-2xl transition-all duration-500 ${
+          isScrolled ? 'shadow-xl bg-white/95 dark:bg-black/95' : ''
+        }`}>
+          <div className="px-6 py-3">
+            <div className="flex justify-between items-center">
+              {/* Logo */}
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-[#16bc4e] to-[#65fe08] rounded-xl flex items-center justify-center">
+                  <Zap className="h-4 w-4 text-white" />
+                </div>
+                <div className="font-satoshi text-lg font-bold bg-gradient-to-r from-[#16bc4e] to-[#65fe08] bg-clip-text text-transparent">
+                  Yo'use Studio
+                </div>
+              </div>
+              
+              {/* Desktop Navigation */}
+              <div className="hidden lg:flex items-center space-x-1">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className="relative px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#16bc4e] dark:hover:text-[#65fe08] transition-all duration-300 rounded-xl hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group"
+                  >
+                    {item.label}
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#16bc4e] to-[#65fe08] group-hover:w-full transition-all duration-300 rounded-full"></div>
+                  </button>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center space-x-2">
+                {/* Command Palette Button */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsCommandOpen(true)}
+                  className="hidden md:flex items-center space-x-2 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-300 group"
+                >
+                  <Command className="h-4 w-4 group-hover:text-[#16bc4e] transition-colors" />
+                  <span className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md font-mono">⌘K</span>
+                </Button>
+                
+                {/* Dark Mode Toggle */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setDarkMode(!darkMode)}
+                  className="hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-300 hover:scale-110 group"
+                >
+                  {darkMode ? 
+                    <Sun className="h-4 w-4 group-hover:text-[#65fe08] transition-colors" /> : 
+                    <Moon className="h-4 w-4 group-hover:text-[#16bc4e] transition-colors" />
+                  }
+                </Button>
+
+                {/* Mobile Menu Toggle */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="lg:hidden hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-300"
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
+                  {isMenuOpen ? 
+                    <X className="h-4 w-4" /> : 
+                    <Menu className="h-4 w-4" />
+                  }
+                </Button>
               </div>
             </div>
-            
-            <div className="hidden md:flex items-center space-x-6">
-              <button onClick={() => scrollToSection('about')} className="text-sm hover:text-primary transition-colors">About</button>
-              <button onClick={() => scrollToSection('products')} className="text-sm hover:text-primary transition-colors">Products</button>
-              <button onClick={() => scrollToSection('demo')} className="text-sm hover:text-primary transition-colors">Demo</button>
-              <button onClick={() => scrollToSection('pricing')} className="text-sm hover:text-primary transition-colors">Pricing</button>
-              <button onClick={() => scrollToSection('faq')} className="text-sm hover:text-primary transition-colors">FAQ</button>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsCommandOpen(true)}
-                className="hidden md:flex items-center space-x-2"
-              >
-                <Command className="h-4 w-4" />
-                <span>⌘K</span>
-              </Button>
-              
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setDarkMode(!darkMode)}
-              >
-                {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="sm"
-                className="md:hidden"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {isMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-              </Button>
-            </div>
           </div>
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="lg:hidden border-t border-gray-200/50 dark:border-gray-800/50 animate-fade-in">
+              <div className="px-6 py-4 space-y-2">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#16bc4e] dark:hover:text-[#65fe08] hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-300"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+                
+                {/* Mobile Command Palette */}
+                <button
+                  onClick={() => setIsCommandOpen(true)}
+                  className="flex items-center w-full px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#16bc4e] dark:hover:text-[#65fe08] hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-300 space-x-2"
+                >
+                  <Command className="h-4 w-4" />
+                  <span>Search</span>
+                  <span className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md font-mono ml-auto">⌘K</span>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-background border-t border-border animate-slide-up">
-            <div className="px-4 py-6 space-y-4">
-              <button onClick={() => { scrollToSection('about'); setIsMenuOpen(false); }} className="block w-full text-left">About</button>
-              <button onClick={() => { scrollToSection('products'); setIsMenuOpen(false); }} className="block w-full text-left">Products</button>
-              <button onClick={() => { scrollToSection('demo'); setIsMenuOpen(false); }} className="block w-full text-left">Demo</button>
-              <button onClick={() => { scrollToSection('pricing'); setIsMenuOpen(false); }} className="block w-full text-left">Pricing</button>
-              <button onClick={() => { scrollToSection('faq'); setIsMenuOpen(false); }} className="block w-full text-left">FAQ</button>
-            </div>
-          </div>
-        )}
       </nav>
 
       {/* Hero Section */}
@@ -320,7 +381,7 @@ const Index = () => {
           </div>
         )}
 
-        <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
           {/* Top tagline */}
           <div className="mb-6 animate-fade-in">
             <span className="text-gray-600 text-lg">You don't need a team.</span>
