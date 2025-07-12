@@ -21,7 +21,15 @@ import {
   Users,
   Globe,
   Shield,
-  Command
+  Command,
+  Smartphone,
+  Database,
+  Layers,
+  TrendingUp,
+  Lock,
+  Eye,
+  Download,
+  ExternalLink
 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
@@ -105,50 +113,68 @@ const Index = () => {
     {
       id: 1,
       title: "SaaS Starter Kit",
+      description: "Complete Next.js boilerplate with authentication, payments, and dashboard",
       tags: ["Next.js", "Auth", "Payments"],
       price: "$99",
       category: "template",
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
+      features: ["Authentication", "Stripe Integration", "Admin Dashboard"],
+      downloads: "2.1k"
     },
     {
       id: 2,
       title: "AI Chat Agent",
+      description: "Intelligent chatbot with OpenAI integration and streaming responses",
       tags: ["OpenAI", "Streaming", "React"],
       price: "$149",
       category: "ai-agent",
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
+      features: ["OpenAI GPT-4", "Real-time Chat", "Custom Training"],
+      downloads: "1.8k"
     },
     {
       id: 3,
       title: "Dashboard Template",
+      description: "Modern analytics dashboard with charts, dark mode, and responsive design",
       tags: ["Analytics", "Charts", "Dark Mode"],
       price: "$79",
       category: "template",
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
+      features: ["Chart.js Integration", "Dark Mode", "Mobile Responsive"],
+      downloads: "3.2k"
     },
     {
       id: 4,
       title: "E-commerce Bot",
+      description: "Automated e-commerce assistant with Shopify integration",
       tags: ["Shopify", "AI", "Automation"],
       price: "$199",
       category: "ai-agent",
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
+      features: ["Shopify API", "Order Management", "Customer Support"],
+      downloads: "1.5k"
     },
     {
       id: 5,
       title: "Landing Page Kit",
+      description: "High-converting landing pages optimized for speed and SEO",
       tags: ["Responsive", "SEO", "Fast"],
       price: "$59",
       category: "template",
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
+      features: ["SEO Optimized", "Conversion Focused", "Mobile First"],
+      downloads: "4.1k"
     },
     {
       id: 6,
       title: "Full-Stack SaaS",
+      description: "Enterprise-ready SaaS solution with database, API, and authentication",
       tags: ["Database", "API", "Auth"],
       price: "$299",
       category: "saas-kit",
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
+      features: ["PostgreSQL", "REST API", "Role-based Auth"],
+      downloads: "892"
     }
   ];
 
@@ -187,7 +213,7 @@ const Index = () => {
               </Button>
             </div>
             <div className="p-2">
-              {['hero', 'products', 'demo', 'pricing', 'faq'].map((section) => (
+              {['hero', 'about', 'products', 'demo', 'pricing', 'faq'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
@@ -212,6 +238,7 @@ const Index = () => {
             </div>
             
             <div className="hidden md:flex items-center space-x-6">
+              <button onClick={() => scrollToSection('about')} className="text-sm hover:text-primary transition-colors">About</button>
               <button onClick={() => scrollToSection('products')} className="text-sm hover:text-primary transition-colors">Products</button>
               <button onClick={() => scrollToSection('demo')} className="text-sm hover:text-primary transition-colors">Demo</button>
               <button onClick={() => scrollToSection('pricing')} className="text-sm hover:text-primary transition-colors">Pricing</button>
@@ -253,6 +280,7 @@ const Index = () => {
         {isMenuOpen && (
           <div className="md:hidden bg-background border-t border-border animate-slide-up">
             <div className="px-4 py-6 space-y-4">
+              <button onClick={() => { scrollToSection('about'); setIsMenuOpen(false); }} className="block w-full text-left">About</button>
               <button onClick={() => { scrollToSection('products'); setIsMenuOpen(false); }} className="block w-full text-left">Products</button>
               <button onClick={() => { scrollToSection('demo'); setIsMenuOpen(false); }} className="block w-full text-left">Demo</button>
               <button onClick={() => { scrollToSection('pricing'); setIsMenuOpen(false); }} className="block w-full text-left">Pricing</button>
@@ -352,6 +380,199 @@ const Index = () => {
         </div>
       </section>
 
+      {/* About Section */}
+      <section id="about" className="scroll-snap-section py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-satoshi text-4xl sm:text-5xl font-black mb-6">
+              <span className="text-gradient">Empowering</span> your digital ownership
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Engaging with an application is like selectively opening your vault. You decrypt only what's necessary, keeping the master key - your data's encryption - solely in your control
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Main Feature Card */}
+            <div className="lg:col-span-2 bg-gradient-to-br from-[#16bc4e]/10 to-[#65fe08]/10 rounded-2xl p-8 border border-[#16bc4e]/20 hover:border-[#16bc4e]/40 transition-all duration-300">
+              <div className="flex items-start space-x-4 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-[#16bc4e] to-[#65fe08] rounded-xl flex items-center justify-center">
+                  <Smartphone className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-satoshi text-2xl font-bold mb-2">Interact with your new internet</h3>
+                  <Button size="sm" className="bg-[#16bc4e] hover:bg-[#16bc4e]/90 text-white">
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+                    <div>
+                      <p className="font-medium text-sm">Good morning</p>
+                      <p className="font-bold">Susan</p>
+                    </div>
+                  </div>
+                  <div className="flex space-x-2">
+                    <div className="w-6 h-6 bg-gray-100 rounded"></div>
+                    <div className="w-6 h-6 bg-gray-100 rounded"></div>
+                  </div>
+                </div>
+                
+                <div className="bg-gradient-to-r from-purple-400 to-purple-600 rounded-lg p-4 text-white">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs opacity-80">NATIONAL ID CARD</span>
+                    <div className="w-6 h-6 bg-white/20 rounded"></div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-12 bg-white/20 rounded"></div>
+                    <div>
+                      <p className="font-bold">Susan Boyle</p>
+                      <div className="flex space-x-4 text-xs mt-2">
+                        <div>
+                          <p>Doc number</p>
+                          <p>BAA000976</p>
+                        </div>
+                        <div>
+                          <p>Expires on</p>
+                          <p>01/03/2028</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Stats Card */}
+            <div className="bg-card rounded-2xl p-6 border border-border hover:shadow-lg transition-all duration-300">
+              <div className="text-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-[#16bc4e] to-[#65fe08] rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <TrendingUp className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="font-satoshi text-xl font-bold mb-2">+5.7k</h3>
+                <p className="text-sm text-muted-foreground">Users connected</p>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span>Apr</span>
+                  <span>+1.1k</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>May</span>
+                  <span>+1.4k</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Jun</span>
+                  <span>+2.1k</span>
+                </div>
+                <div className="flex justify-between text-sm font-bold">
+                  <span>Jul</span>
+                  <span>+1.7k</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Technology Card */}
+            <div className="bg-card rounded-2xl p-6 border border-border hover:shadow-lg transition-all duration-300">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 bg-[#16bc4e]/10 rounded-lg flex items-center justify-center">
+                  <Shield className="h-5 w-5 text-[#16bc4e]" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-sm">OUR TECHNOLOGY</h4>
+                </div>
+              </div>
+              
+              <h3 className="font-satoshi text-lg font-bold mb-3">
+                Didit platform enhances client onboarding, focusing on efficient identity verification and KYC.
+              </h3>
+              
+              <div className="space-y-3">
+                <div>
+                  <h4 className="font-medium text-sm mb-1">Look in to the Camera</h4>
+                  <p className="text-xs text-muted-foreground">Make sure your face is inside the box and capture a photo</p>
+                </div>
+                <div className="w-16 h-16 border-2 border-dashed border-gray-300 rounded-lg mx-auto"></div>
+              </div>
+            </div>
+
+            {/* Wallet Connection Card */}
+            <div className="bg-card rounded-2xl p-6 border border-border hover:shadow-lg transition-all duration-300">
+              <h3 className="font-satoshi text-lg font-bold mb-4">Connect wallet</h3>
+              <p className="text-sm text-muted-foreground mb-6">
+                By connecting your wallet, you agree to our Terms of Service and our Privacy Policy
+              </p>
+              
+              <div className="space-y-3">
+                <Button className="w-full justify-start bg-blue-600 hover:bg-blue-700 text-white">
+                  <div className="w-6 h-6 bg-white rounded mr-3"></div>
+                  METAMASK
+                </Button>
+                <Button variant="outline" className="w-full justify-start">
+                  <div className="w-6 h-6 bg-blue-100 rounded mr-3"></div>
+                  COINBASE WALLET
+                </Button>
+                <Button variant="outline" className="w-full justify-start">
+                  <div className="w-6 h-6 bg-gray-100 rounded mr-3"></div>
+                  WALLET CONNECT
+                </Button>
+              </div>
+            </div>
+
+            {/* Download Card */}
+            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-6 text-white">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-satoshi text-lg font-bold">Download the App / Browser</h3>
+                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                  <Download className="h-4 w-4" />
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-xl p-4 mb-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <div className="w-6 h-6 bg-white rounded"></div>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-black">Didit.me</h4>
+                    <p className="text-sm text-gray-600">Premium</p>
+                  </div>
+                  <Button size="sm" className="ml-auto bg-blue-600">GET</Button>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 mt-4 text-center text-black">
+                  <div>
+                    <p className="font-bold">4.9</p>
+                    <p className="text-xs text-gray-600">Rating</p>
+                  </div>
+                  <div>
+                    <p className="font-bold">12+</p>
+                    <p className="text-xs text-gray-600">Age</p>
+                  </div>
+                  <div>
+                    <p className="font-bold">9+</p>
+                    <p className="text-xs text-gray-600">Category</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="text-right">
+                <div className="inline-flex items-center bg-black/20 rounded-full px-3 py-1 text-xs">
+                  <span className="mr-2">Now available in the App Store</span>
+                  <Button size="sm" className="bg-white text-black hover:bg-gray-100">GET</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Social Proof Section */}
       <section className="scroll-snap-section py-16 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -409,40 +630,78 @@ const Index = () => {
             ))}
           </div>
 
-          {/* Product Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Enhanced Product Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.map((product, index) => (
               <Card 
                 key={product.id} 
-                className="group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-2 hover:border-primary/20 animate-fade-in"
+                className="group relative overflow-hidden hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 border-2 hover:border-[#16bc4e]/30 animate-fade-in bg-gradient-to-br from-white via-white to-gray-50/30"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <CardHeader className="p-0">
-                  <div className="aspect-video bg-gradient-to-br from-[#16bc4e]/10 to-[#65fe08]/10 rounded-t-lg flex items-center justify-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#16bc4e] to-[#65fe08] rounded-lg flex items-center justify-center">
-                      <Code className="h-8 w-8 text-white" />
+                <CardHeader className="p-0 relative">
+                  <div className="aspect-video bg-gradient-to-br from-[#16bc4e]/10 to-[#65fe08]/10 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#16bc4e]/5 to-[#65fe08]/5 group-hover:from-[#16bc4e]/20 group-hover:to-[#65fe08]/20 transition-all duration-500"></div>
+                    <div className="relative z-10 h-full flex items-center justify-center">
+                      <div className="w-20 h-20 bg-gradient-to-br from-[#16bc4e] to-[#65fe08] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <Code className="h-10 w-10 text-white" />
+                      </div>
+                    </div>
+                    
+                    {/* Floating Badge */}
+                    <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-1">
+                      <Download className="h-3 w-3" />
+                      <span>{product.downloads}</span>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-6">
+                
+                <CardContent className="p-6 relative">
                   <div className="flex justify-between items-start mb-3">
-                    <CardTitle className="text-lg group-hover:text-primary transition-colors">
-                      {product.title}
-                    </CardTitle>
-                    <Badge variant="secondary" className="text-primary font-bold">
+                    <div className="flex-1">
+                      <CardTitle className="text-xl group-hover:text-[#16bc4e] transition-colors duration-300 mb-2">
+                        {product.title}
+                      </CardTitle>
+                      <CardDescription className="text-sm text-muted-foreground leading-relaxed">
+                        {product.description}
+                      </CardDescription>
+                    </div>
+                    <Badge className="bg-gradient-to-r from-[#16bc4e] to-[#65fe08] text-white font-bold ml-4 px-3 py-1">
                       {product.price}
                     </Badge>
                   </div>
-                  <div className="flex flex-wrap gap-1 mb-4">
+                  
+                  {/* Features List */}
+                  <div className="mb-4">
+                    <ul className="space-y-1">
+                      {product.features.map((feature, i) => (
+                        <li key={i} className="flex items-center text-xs text-muted-foreground">
+                          <Check className="h-3 w-3 text-[#16bc4e] mr-2 flex-shrink-0" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-1 mb-6">
                     {product.tags.map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs">
+                      <Badge key={tag} variant="outline" className="text-xs border-[#16bc4e]/30 text-[#16bc4e] hover:bg-[#16bc4e]/10">
                         {tag}
                       </Badge>
                     ))}
                   </div>
-                  <Button className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    View Details
-                  </Button>
+                  
+                  <div className="flex space-x-2">
+                    <Button className="flex-1 bg-gradient-to-r from-[#16bc4e] to-[#65fe08] hover:from-[#16bc4e]/90 hover:to-[#65fe08]/90 text-white font-medium shadow-lg group-hover:shadow-xl transition-all duration-300">
+                      <Eye className="h-4 w-4 mr-2" />
+                      Preview
+                    </Button>
+                    <Button variant="outline" size="sm" className="border-[#16bc4e]/30 hover:bg-[#16bc4e]/10 hover:border-[#16bc4e] transition-colors">
+                      <ExternalLink className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#16bc4e]/0 via-transparent to-[#65fe08]/0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"></div>
                 </CardContent>
               </Card>
             ))}
