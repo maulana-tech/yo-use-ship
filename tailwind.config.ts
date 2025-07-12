@@ -66,6 +66,11 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom brand colors
+				brand: {
+					green: '#16bc4e',
+					lime: '#65fe08',
 				}
 			},
 			borderRadius: {
@@ -119,6 +124,10 @@ export default {
 						opacity: '1',
 						transform: 'scale(1)'
 					}
+				},
+				'marquee': {
+					'0%': { transform: 'translateX(0%)' },
+					'100%': { transform: 'translateX(-100%)' }
 				}
 			},
 			animation: {
@@ -126,7 +135,8 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.6s ease-out',
 				'slide-up': 'slide-up 0.6s ease-out',
-				'scale-in': 'scale-in 0.3s ease-out'
+				'scale-in': 'scale-in 0.3s ease-out',
+				'marquee': 'marquee 25s linear infinite'
 			}
 		}
 	},
@@ -135,7 +145,13 @@ export default {
 		function({ addUtilities }: any) {
 			addUtilities({
 				'.text-gradient': {
-					'background': 'linear-gradient(to right, #7c3aed, #22d3ee)',
+					'background': 'linear-gradient(to right, #16bc4e, #65fe08)',
+					'-webkit-background-clip': 'text',
+					'background-clip': 'text',
+					'-webkit-text-fill-color': 'transparent',
+				},
+				'.text-gradient-reverse': {
+					'background': 'linear-gradient(to right, #65fe08, #16bc4e)',
 					'-webkit-background-clip': 'text',
 					'background-clip': 'text',
 					'-webkit-text-fill-color': 'transparent',

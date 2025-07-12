@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,7 +34,7 @@ const Index = () => {
   const heroRef = useRef<HTMLElement>(null);
   const { toast } = useToast();
 
-  const fullText = "Ship digital products at lightspeed.";
+  const fullText = "You need a powerful website template.";
 
   // Typewriter effect
   useEffect(() => {
@@ -264,9 +263,7 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" ref={heroRef} className="scroll-snap-section relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated Gradient Background */}
-        <div className="absolute inset-0 gradient-mesh opacity-20"></div>
+      <section id="hero" ref={heroRef} className="scroll-snap-section relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
         
         {/* Parallax Stars for Dark Mode */}
         {darkMode && (
@@ -287,38 +284,70 @@ const Index = () => {
           </div>
         )}
 
-        <div className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="font-satoshi text-4xl sm:text-6xl lg:text-7xl font-black mb-6 leading-tight">
-            <span className="text-gradient">{typewriterText}</span>
-            <span className="animate-pulse">|</span>
-          </h1>
-          
-          <p className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '800ms' }}>
-            Premium templates, AI agents, and SaaS kits for developers who ship fast.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '1200ms' }}>
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              Browse Templates
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button size="lg" variant="outline">
-              <Play className="mr-2 h-4 w-4" />
-              Watch 30-sec Demo
-            </Button>
+        <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Top tagline */}
+          <div className="mb-6 animate-fade-in">
+            <span className="text-gray-600 text-lg">You don't need a team.</span>
           </div>
 
-          {/* Floating 3D Card Mockup */}
-          <div className="mt-12 animate-float">
-            <div className="relative mx-auto w-80 h-48 bg-gradient-to-br from-violet-600 to-cyan-400 rounded-xl shadow-2xl transform perspective-1000 rotate-y-12 hover:scale-105 transition-transform duration-300">
-              <div className="absolute inset-2 bg-background rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-violet-600 to-cyan-400 rounded-lg mx-auto mb-3"></div>
-                  <h3 className="font-satoshi font-bold">Template Preview</h3>
-                  <p className="text-sm text-muted-foreground">Interactive 3D Card</p>
-                </div>
-              </div>
+          {/* Main headline */}
+          <h1 className="font-satoshi text-5xl sm:text-6xl lg:text-8xl font-black mb-6 leading-tight">
+            <span className="text-black">You need a </span>
+            <span className="relative inline-block">
+              <span className="bg-[#65fe08] text-black px-4 py-2 rounded-lg inline-flex items-center">
+                <Zap className="h-8 w-8 mr-2" />
+                powerful
+              </span>
+            </span>
+            <br />
+            <span className="text-black flex items-center justify-center">
+              <Globe className="h-12 w-12 mr-4 text-gray-400" />
+              website template.
+            </span>
+          </h1>
+          
+          <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '800ms' }}>
+            Launch a stunning website that looks like you hired a top design agency. In days.
+          </p>
+
+          {/* Social proof */}
+          <div className="flex items-center justify-center space-x-4 mb-8 animate-fade-in" style={{ animationDelay: '1000ms' }}>
+            <div className="flex -space-x-2">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="w-10 h-10 rounded-full bg-gray-300 border-2 border-white"></div>
+              ))}
             </div>
+            <div className="text-left">
+              <div className="flex items-center">
+                <span className="text-lg font-bold mr-2">4.9/5</span>
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <p className="text-sm text-gray-600">Loved by 2,645+ creators</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '1200ms' }}>
+            <Button size="lg" className="bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg">
+              Browse Templates
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button size="lg" variant="outline" className="border-2 border-black text-black hover:bg-gray-50 px-8 py-4 text-lg">
+              <Zap className="mr-2 h-5 w-5 text-[#65fe08]" />
+              Learn How It Works
+            </Button>
+          </div>
+        </div>
+
+        {/* Bottom section showing platforms */}
+        <div className="absolute bottom-8 right-8 text-right animate-fade-in" style={{ animationDelay: '1400ms' }}>
+          <p className="text-sm text-gray-500 mb-2">As seen on these platforms:</p>
+          <div className="flex items-center space-x-4">
+            <span className="text-sm font-medium">lemon squeezy</span>
+            <span className="text-sm font-medium">ui</span>
+            <span className="text-sm font-medium">Framer</span>
+            <span className="text-sm font-medium">contra</span>
           </div>
         </div>
       </section>
@@ -389,8 +418,8 @@ const Index = () => {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <CardHeader className="p-0">
-                  <div className="aspect-video bg-gradient-to-br from-violet-100 to-cyan-100 dark:from-violet-900 dark:to-cyan-900 rounded-t-lg flex items-center justify-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-violet-600 to-cyan-400 rounded-lg flex items-center justify-center">
+                  <div className="aspect-video bg-gradient-to-br from-[#16bc4e]/10 to-[#65fe08]/10 rounded-t-lg flex items-center justify-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#16bc4e] to-[#65fe08] rounded-lg flex items-center justify-center">
                       <Code className="h-8 w-8 text-white" />
                     </div>
                   </div>
