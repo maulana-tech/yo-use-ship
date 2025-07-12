@@ -478,9 +478,9 @@ const Index = () => {
                   Generated Code
                 </h3>
                 <div className="bg-slate-900 rounded-lg p-4 text-green-400 font-mono text-sm h-64 overflow-y-auto">
-                  <div className="text-blue-400">import</div> {'{'} useState {'}'} <div className="text-blue-400">from</div> <div className="text-yellow-400">'react'</div>;
+                  <div className="text-blue-400">import</div> {'{useState}'} <div className="text-blue-400">from</div> <div className="text-yellow-400">'react'</div>;
                   <br /><br />
-                  <div className="text-blue-400">const</div> <div className="text-yellow-400">LandingPage</div> = () => {'{'}
+                  <div className="text-blue-400">const</div> <div className="text-yellow-400">LandingPage</div> = () =&gt; {'{'}
                   <br />
                   &nbsp;&nbsp;<div className="text-blue-400">const</div> [darkMode, setDarkMode] = <div className="text-yellow-400">useState</div>(<div className="text-orange-400">false</div>);
                   <br /><br />
