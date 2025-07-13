@@ -438,15 +438,6 @@ const Index = () => {
         </div>
 
         {/* Bottom section showing platforms */}
-        <div className="absolute bottom-8 right-8 text-right animate-fade-in" style={{ animationDelay: '1400ms' }}>
-          <p className="text-sm text-gray-500 mb-2">As seen on these platforms:</p>
-          <div className="flex items-center space-x-4">
-            <span className="text-sm font-medium">lemon squeezy</span>
-            <span className="text-sm font-medium">ui</span>
-            <span className="text-sm font-medium">Framer</span>
-            <span className="text-sm font-medium">contra</span>
-          </div>
-        </div>
       </section>
 
       {/* About Section */}
