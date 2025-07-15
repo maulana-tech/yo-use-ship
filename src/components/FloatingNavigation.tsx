@@ -1,12 +1,13 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { 
-  Zap, 
-  Sun, 
-  Moon, 
-  Menu, 
-  X, 
-  Command 
+import { Link } from 'react-router-dom';
+import {
+  Zap,
+  Sun,
+  Moon,
+  Menu,
+  X,
+  Command
 } from 'lucide-react';
 
 interface FloatingNavigationProps {
@@ -29,11 +30,11 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
   scrollToSection
 }) => {
   const navItems = [
-    { label: 'About', id: 'about' },
-    { label: 'Products', id: 'products' },
-    { label: 'Demo', id: 'demo' },
-    { label: 'Pricing', id: 'pricing' },
-    { label: 'FAQ', id: 'faq' }
+    { label: 'About', id: 'about', type: 'scroll' },
+    { label: 'Products', path: '/products', type: 'link' },
+    { label: 'Demo', id: 'demo', type: 'scroll' },
+    { label: 'Pricing', id: 'pricing', type: 'scroll' },
+    { label: 'FAQ', id: 'faq', type: 'scroll' }
   ];
 
   return (
@@ -58,14 +59,25 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
               {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="relative px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#16bc4e] dark:hover:text-[#65fe08] transition-all duration-300 rounded-xl hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group"
-                >
-                  {item.label}
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#16bc4e] to-[#65fe08] group-hover:w-full transition-all duration-300 rounded-full"></div>
-                </button>
+                item.type === 'link' ? (
+                  <Link
+                    key={item.label}
+                    to={item.path || '/'}
+                    className="relative px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#16bc4e] dark:hover:text-[#65fe08] transition-all duration-300 rounded-xl hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group"
+                  >
+                    {item.label}
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#16bc4e] to-[#65fe08] group-hover:w-full transition-all duration-300 rounded-full"></div>
+                  </Link>
+                ) : (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id || '')}
+                    className="relative px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#16bc4e] dark:hover:text-[#65fe08] transition-all duration-300 rounded-xl hover:bg-gray-100/50 dark:hover:bg-gray-800/50 group"
+                  >
+                    {item.label}
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#16bc4e] to-[#65fe08] group-hover:w-full transition-all duration-300 rounded-full"></div>
+                  </button>
+                )
               ))}
             </div>
 
@@ -116,13 +128,24 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
           <div className="lg:hidden border-t border-gray-200/50 dark:border-gray-800/50 animate-fade-in">
             <div className="px-6 py-4 space-y-2">
               {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#16bc4e] dark:hover:text-[#65fe08] hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-300"
-                >
-                  {item.label}
-                </button>
+                item.type === 'link' ? (
+                  <Link
+                    key={item.label}
+                    to={item.path || '/'}
+                    className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#16bc4e] dark:hover:text-[#65fe08] hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-300"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id || '')}
+                    className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#16bc4e] dark:hover:text-[#65fe08] hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-300"
+                  >
+                    {item.label}
+                  </button>
+                )
               ))}
               
               {/* Mobile Command Palette */}
@@ -143,3 +166,4 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
 };
 
 export default FloatingNavigation;
+

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useToast } from "@/hooks/use-toast";
+import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
+import { ShoppingBag, ArrowRight } from 'lucide-react';
 import CommandPalette from '@/components/CommandPalette';
 import FloatingNavigation from '@/components/FloatingNavigation';
 import HeroSection from '@/components/HeroSection';
@@ -131,6 +134,25 @@ const Index = () => {
 
       {/* About Section */}
       <AboutSection />
+
+      {/* Product Showcase CTA */}
+      <section className="py-16 bg-gradient-to-r from-[#16bc4e]/5 to-[#65fe08]/5">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-satoshi text-3xl sm:text-4xl font-black mb-6">
+            Ready to explore our <span className="text-gradient">products</span>?
+          </h2>
+          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Discover our complete collection of website templates, AI tools, and development resources designed to accelerate your projects.
+          </p>
+          <Link to="/products">
+            <Button size="lg" className="bg-[#16bc4e] hover:bg-[#16bc4e]/90 text-white group">
+              <ShoppingBag className="h-5 w-5 mr-2" />
+              Browse All Products
+              <ArrowRight className="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
+        </div>
+      </section>
 
       {/* Web3 Bento Grid Section */}
       <Web3BentoGridSection />
