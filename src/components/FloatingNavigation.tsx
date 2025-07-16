@@ -37,6 +37,7 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
     ...(isHomePage ? [] : [{ label: 'Home', path: '/', type: 'link', icon: Home }]),
     { label: 'About', path: '/about', type: 'link' },
     { label: 'Products', path: '/products', type: 'link' },
+    { label: 'Contact', path: '/contact', type: 'link' },
     ...(isHomePage ? [
       { label: 'Demo', id: 'demo', type: 'scroll' },
       { label: 'Pricing', id: 'pricing', type: 'scroll' }
