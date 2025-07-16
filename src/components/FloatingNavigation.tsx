@@ -1,13 +1,14 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Zap,
   Sun,
   Moon,
   Menu,
   X,
-  Command
+  Command,
+  Home
 } from 'lucide-react';
 
 interface FloatingNavigationProps {
@@ -29,12 +30,15 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
   setIsCommandOpen,
   scrollToSection
 }) => {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   const navItems = [
+    ...(isHomePage ? [] : [{ label: 'Home', path: '/', type: 'link', icon: Home }]),
     { label: 'About', id: 'about', type: 'scroll' },
     { label: 'Products', path: '/products', type: 'link' },
     { label: 'Demo', id: 'demo', type: 'scroll' },
     { label: 'Pricing', id: 'pricing', type: 'scroll' },
-    { label: 'FAQ', id: 'faq', type: 'scroll' }
   ];
 
   return (
@@ -47,14 +51,14 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
         <div className="px-6 py-3">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
+            <Link to="/" className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-gradient-to-br from-[#16bc4e] to-[#65fe08] rounded-xl flex items-center justify-center">
                 <Zap className="h-4 w-4 text-white" />
               </div>
               <div className="font-satoshi text-lg font-bold bg-gradient-to-r from-[#16bc4e] to-[#65fe08] bg-clip-text text-transparent">
-                Yo'use Studio
+                Using.dev
               </div>
-            </div>
+            </Link>
             
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
@@ -140,7 +144,10 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
                 ) : (
                   <button
                     key={item.id}
-                    onClick={() => scrollToSection(item.id || '')}
+                    onClick={() => {
+                      scrollToSection(item.id || '');
+                      setIsMenuOpen(false);
+                    }}
                     className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#16bc4e] dark:hover:text-[#65fe08] hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-300"
                   >
                     {item.label}
@@ -150,7 +157,10 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
               
               {/* Mobile Command Palette */}
               <button
-                onClick={() => setIsCommandOpen(true)}
+                onClick={() => {
+                  setIsCommandOpen(true);
+                  setIsMenuOpen(false);
+                }}
                 className="flex items-center w-full px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#16bc4e] dark:hover:text-[#65fe08] hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-300 space-x-2"
               >
                 <Command className="h-4 w-4" />
@@ -166,4 +176,3 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
 };
 
 export default FloatingNavigation;
-
