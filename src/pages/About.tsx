@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
@@ -18,8 +18,55 @@ import {
   Trophy
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import CommandPalette from '@/components/CommandPalette';
+import FloatingNavigation from '@/components/FloatingNavigation';
 
 const About = () => {
+  const [darkMode, setDarkMode] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCommandOpen, setIsCommandOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Scroll detection for floating navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Dark mode toggle
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
+  // Command palette
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setIsCommandOpen(open => !open);
+      }
+    };
+
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsCommandOpen(false);
+      setIsMenuOpen(false);
+    }
+  };
   const teamMembers = [
     {
       name: "Alex Chen",
@@ -103,7 +150,24 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      {/* Command Palette */}
+      <CommandPalette
+        isCommandOpen={isCommandOpen}
+        setIsCommandOpen={setIsCommandOpen}
+        scrollToSection={scrollToSection}
+      />
+
+      {/* Floating Navigation */}
+      <FloatingNavigation
+        isScrolled={isScrolled}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+        setIsCommandOpen={setIsCommandOpen}
+        scrollToSection={scrollToSection}
+      />
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
