@@ -13,6 +13,7 @@ import {
   Star,
 } from 'lucide-react';
 import type { LucideProps } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // Disesuaikan dengan interface dari ProductPage.tsx
 interface Product {
@@ -114,10 +115,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, IconComponent }) => 
 
         {/* Tombol Aksi */}
         <div className="flex space-x-3 mt-auto">
-          <Button className="flex-1 bg-foreground hover:bg-foreground/80 text-background font-medium shadow-lg transition-all duration-300 py-3 text-base hover:shadow-xl">
-            <Eye className="h-4 w-4 mr-2" />
-            <span>Preview</span>
-          </Button>
+          <Link to={`/product/${product.id}`} className="flex-1">
+            <Button className="w-full bg-foreground hover:bg-foreground/80 text-background font-medium shadow-lg transition-all duration-300 py-3 text-base hover:shadow-xl">
+              <Eye className="h-4 w-4 mr-2" />
+              <span>Preview</span>
+            </Button>
+          </Link>
           <Button
             variant="outline"
             size="icon"
