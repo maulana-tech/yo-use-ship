@@ -35,10 +35,12 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
 
   const navItems = [
     ...(isHomePage ? [] : [{ label: 'Home', path: '/', type: 'link', icon: Home }]),
-    { label: 'About', id: 'about', type: 'scroll' },
+    { label: 'About', path: '/about', type: 'link' },
     { label: 'Products', path: '/products', type: 'link' },
-    { label: 'Demo', id: 'demo', type: 'scroll' },
-    { label: 'Pricing', id: 'pricing', type: 'scroll' },
+    ...(isHomePage ? [
+      { label: 'Demo', id: 'demo', type: 'scroll' },
+      { label: 'Pricing', id: 'pricing', type: 'scroll' }
+    ] : [])
   ];
 
   return (
