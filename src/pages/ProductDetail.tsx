@@ -217,7 +217,7 @@ const ProductDetail = () => {
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-4 right-4 space-y-2">
+                <div className="absolute top-4 right-4 space-x-4">
                   <Button size="icon" variant="secondary" className="backdrop-blur-sm bg-white/90">
                     <Heart className="w-4 h-4" />
                   </Button>
