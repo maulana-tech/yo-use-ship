@@ -10,6 +10,8 @@ import {
   Command,
   Home
 } from 'lucide-react';
+import { useUser } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
 
 interface FloatingNavigationProps {
   isScrolled: boolean;
@@ -32,6 +34,7 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
 }) => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const { isSignedIn } = useUser();
 
   const navItems = [
     ...(isHomePage ? [] : [{ label: 'Home', path: '/', type: 'link', icon: Home }]),
@@ -114,6 +117,22 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
                 }
               </Button>
 
+              {/* Login/Sign Up or User Avatar */}
+              <SignedOut>
+                <SignInButton mode="modal" appearance={{ elements: { button: "ml-2 px-4 py-2 border rounded text-sm" } }}>
+                  Sign in
+                </SignInButton>
+                <SignUpButton mode="modal" appearance={{ elements: { button: "ml-2 px-4 py-2 bg-primary text-white rounded text-sm" } }}>
+                  Sign up
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" />
+                <Link to="/admin/dashboard">
+                  <Button variant="default" size="sm" className="ml-2">Dashboard</Button>
+                </Link>
+              </SignedIn>
+
               {/* Mobile Menu Toggle */}
               <Button
                 variant="ghost"
@@ -170,6 +189,24 @@ const FloatingNavigation: React.FC<FloatingNavigationProps> = ({
                 <span>Search</span>
                 <span className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md font-mono ml-auto">⌘K</span>
               </button>
+
+              {/* Mobile Login/Sign Up or User Avatar */}
+              <SignedOut>
+                <SignInButton mode="modal" appearance={{ elements: { button: "w-full mt-2 px-4 py-2 border rounded text-sm" } }}>
+                  Sign in
+                </SignInButton>
+                <SignUpButton mode="modal" appearance={{ elements: { button: "w-full mt-2 px-4 py-2 bg-primary text-white rounded text-sm" } }}>
+                  Sign up
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <div className="flex items-center gap-2 w-full mt-2">
+                  <UserButton afterSignOutUrl="/" />
+                  <Link to="/admin/dashboard" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="default" size="sm" className="w-full">Dashboard</Button>
+                  </Link>
+                </div>
+              </SignedIn>
             </div>
           </div>
         )}
