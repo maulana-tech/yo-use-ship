@@ -25,16 +25,16 @@
         "./*"
       ],
       "@/components/*": [
-        "components/*"
+        "src/components/*"
       ],
       "@/lib/*": [
-        "lib/*"
+        "src/lib/*"
       ],
       "@/actions/*": [
-        "actions/*"
+        "src/actions/*"
       ],
       "@/app/*": [
-        "app/*"
+        "src/app/*"
       ]
     },
     "plugins": [
