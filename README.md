@@ -50,6 +50,16 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
+## ClerkJS Setup
+
+Tambahkan variabel berikut ke file `.env` Anda:
+
+```
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_publishable_key
+```
+
+Ganti `pk_test_your_clerk_publishable_key` dengan publishable key dari dashboard Clerk Anda.
+
 ## What technologies are used for this project?
 
 This project is built with:
